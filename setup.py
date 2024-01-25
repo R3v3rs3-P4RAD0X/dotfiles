@@ -94,7 +94,6 @@ class Linker:
             # Print the output
             print(f"Linked {file['source']} to {file['output']}")
 
-
 if __name__ == "__main__":
     linker = Linker()
     linker.run()
