@@ -1,0 +1,10 @@
+# Add a blank line at the beginning
+add_newline = false
+
+[character]
+success_symbol  = "[>](bold green)"
+error_symbol    = "[>](bold red)"
+format          = "$symbol "
+
+[directory]
+truncation_length = 1
