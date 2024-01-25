@@ -15,11 +15,21 @@ config = os.path.join(home, ".config")
 
 # Create a class for the files
 class Linker:
+    """
+    A class that represents a linker for creating symbolic links from a source directory to a destination directory.
+    """
+
     def __init__(self):
         self.files = []
         self.walk(os.getcwd())
 
     def walk(self, directory):
+        """
+        Recursively walks through the given directory and its subdirectories to find files.
+
+        Args:
+            directory (str): The directory to start the walk from.
+        """
         if directory in ignore:
             return
         
@@ -39,6 +49,9 @@ class Linker:
                 })
 
     def run(self):
+        """
+        Runs the linker by creating symbolic links for the files in the `files` list.
+        """
         for file in self.files:
             src, dst = file["source"], file["output"]
 
