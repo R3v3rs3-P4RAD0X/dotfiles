@@ -13,6 +13,9 @@ backup = os.path.join(home, ".dotfiles/backup")
 # Config directory
 config = os.path.join(home, ".config")
 
+# Ensure packages | change this to have the script auto install the packages required
+ensure_packages = False
+
 # Create a class for the files
 class Linker:
     """
@@ -107,6 +110,34 @@ class Linker:
             # Print the output
             print(f"Linked {file['source']} to {file['output']}")
 
+    def ensure_packages(self) -> None:
+        """
+        Ensures that the required packages are installed.
+        """
+        # If the user is using Arch Linux, install the packages using pacman
+        if os.path.exists("/etc/arch-release"):
+            os.system("sudo pacman -S --needed - < packages.txt")
+
+        # If the user is using Ubuntu, install the packages using apt
+        elif os.path.exists("/etc/debian_version"):
+            os.system("sudo apt install -y $(cat packages.txt)")
+
+        # If the user is using Fedora, install the packages using dnf
+        elif os.path.exists("/etc/fedora-release"):
+            os.system("sudo dnf install -y $(cat packages.txt)")
+
+        # If the user is using macOS, install the packages using brew
+        elif os.path.exists("/usr/local/bin/brew"):
+            os.system("brew install $(cat packages.txt)")
+
+        # If the user is using Windows, install the packages using chocolatey
+        elif os.path.exists("C:/ProgramData/chocolatey/bin/choco.exe"):
+            os.system("choco install $(cat packages.txt)")
+        
+
 if __name__ == "__main__":
     linker = Linker()
     linker.run()
+
+    if ensure_packages:
+        linker.ensure_packages()    
