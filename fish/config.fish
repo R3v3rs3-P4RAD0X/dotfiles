@@ -5,6 +5,7 @@ end
 
 # Path variable
 set -x PATH $HOME/.local/bin $PATH
+set -x PATH $HOME/.cargo/bin $PATH
 
 # Aliases
 alias ls="exa -a -l -h --group-directories-first"
